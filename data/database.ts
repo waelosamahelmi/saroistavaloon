@@ -2,11 +2,6 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import { Booking, TimeSlot, Material } from './types';
 
-const DATA_DIR = join(process.cwd(), 'data');
-const BOOKINGS_FILE = join(DATA_DIR, 'bookings.json');
-const SLOTS_FILE = join(DATA_DIR, 'slots.json');
-const MATERIALS_FILE = join(DATA_DIR, 'materials.json');
-
 // Initialize data files
 async function initDataFile(filename: string, defaultData: any = {}) {
   try {
