@@ -90,7 +90,7 @@ export default function ServicesPage() {
             
             <div className="inline-block border border-slate-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-slate-600 mb-1">45 min etäohjaus</p>
-              <p className="text-2xl font-semibold text-slate-800">65 €</p>
+              <p className="text-2xl font-semibold text-slate-800">59 €</p>
             </div>
 
             <div className="block">

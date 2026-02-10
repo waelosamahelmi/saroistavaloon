@@ -4,7 +4,8 @@ import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 const services = [
-  { id: "yksilovalmennus", name: "Henkilökohtainen etäohjaus (60 min)", price: 75 },
+  { id: "45min", name: "Henkilökohtainen etäohjaus (45 min)", price: 59 },
+  { id: "60min", name: "Henkilökohtainen etäohjaus (60 min)", price: 75 },
   { id: "paketti3", name: "3 kerran paketti", price: 225 },
   { id: "paketti5", name: "5 kerran paketti", price: 375 },
   { id: "14paivaa", name: "14 päivän valmennusjakso", price: 149 },
