@@ -1,6 +1,6 @@
 "use client";
 
-import { useLottie, useLottieInteractivity } from "lottie-react";
+import { useLottie } from "lottie-react";
 import { useEffect } from "react";
 
 interface LottieAnimationProps {
@@ -18,18 +18,8 @@ export default function LottieAnimation({ animationData, width = 200, className 
 
   const lottieRef = useLottie(options, { width, height: width });
   
-  // Add smooth interaction
-  useLottieInteractivity({
-    lottieRef: lottieRef.lottieRef,
-    mode: "scroll",
-    actions: [
-      {
-        visibility: [0, 1],
-        type: "seek",
-        frames: [0, 100],
-      },
-    ],
-  });
+  // Note: Interactivity removed for production build compatibility
+  // Use CSS animations instead via BreathingCircle component
 
   return <div ref={lottieRef} className={className} />;
 }
