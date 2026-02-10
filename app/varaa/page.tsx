@@ -10,10 +10,7 @@ const services = [
   { id: "14paivaa", name: "14 päivän valmennusjakso", price: 149 },
 ];
 
-function BookingContent() {
-  const searchParams = useSearchParams();
-  const preSelectedService = searchParams.get("service");
-
+function BookingForm({ preSelectedService }: { preSelectedService: string | null }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -212,6 +209,13 @@ function BookingContent() {
       </div>
     </div>
   );
+}
+
+function BookingContent() {
+  const searchParams = useSearchParams();
+  const preSelectedService = searchParams.get("service");
+
+  return <BookingForm preSelectedService={preSelectedService} />;
 }
 
 export default function BookingPage() {
