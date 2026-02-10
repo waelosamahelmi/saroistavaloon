@@ -21,7 +21,7 @@ export default function LottieAnimation({ animationData, width = 200, className 
   // Note: Interactivity removed for production build compatibility
   // Use CSS animations instead via BreathingCircle component
 
-  return <div ref={lottieRef} className={className} />;
+  return <>{lottieRef.View}</>;
 }
 
 // Meditation/Calming animation data
