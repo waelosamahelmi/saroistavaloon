@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 const services = [
@@ -10,7 +10,7 @@ const services = [
   { id: "14paivaa", name: "14 päivän valmennusjakso", price: 149 },
 ];
 
-export default function BookingPage() {
+function BookingContent() {
   const searchParams = useSearchParams();
   const preSelectedService = searchParams.get("service");
 
@@ -211,5 +211,13 @@ export default function BookingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookingContent />
+    </Suspense>
   );
 }
