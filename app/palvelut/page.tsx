@@ -56,7 +56,7 @@ export default function ServicesPage() {
           {/* 14-day Program */}
           <div className="bg-white rounded-2xl shadow-sm p-8 md:p-10 hover:shadow-md transition-shadow">
             <h2 className="text-2xl font-medium text-slate-800 mb-2">
-              14 päivän valmennusjakso
+              14 päivän etä valmennusjakso
             </h2>
             <p className="text-slate-700 mb-4">
               Selkeä ja rajattu valmennusjakso, jossa saat tukea arkeen, pohdintaan ja muutoksen alkuun.
@@ -64,9 +64,20 @@ export default function ServicesPage() {
             <p className="text-slate-600 mb-6">
               Jakso tarjoaa tilaa pysähtymiselle, sanoittamiselle ja uusien näkökulmien löytämiselle.
             </p>
+            <p className="text-slate-600 mb-6">
+              Hinnan jälkeen selitys valmennuksesta:
+            </p>
+            <div className="space-y-3 text-slate-700 mb-6 text-sm">
+              <p>• Jakso sisältää viestiohjausta</p>
+              <p>• Mahdollisia puheluita</p>
+              <p>• Alkuvaiheen kartoituksen</p>
+            </div>
+            <p className="text-slate-500 italic text-sm mb-6">
+              Valmennus ei sisällä videovälitteisiä tai tapaamisia kuvia.
+            </p>
             
             <div className="inline-block border border-slate-200 rounded-lg p-4 mb-6">
-              <p className="text-2xl font-semibold text-slate-800">149 €</p>
+              <p className="text-2xl font-semibold text-slate-800">129 €</p>
             </div>
 
             <div className="block">
@@ -91,12 +102,6 @@ export default function ServicesPage() {
             <div className="inline-block border border-slate-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-slate-600 mb-1">45 min etäohjaus</p>
               <p className="text-2xl font-semibold text-slate-800">59 €</p>
-            </div>
-
-            <div className="block">
-              <a href="/varaa?service=lyhyt" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
-                Varaa aika
-              </a>
             </div>
           </div>
 
