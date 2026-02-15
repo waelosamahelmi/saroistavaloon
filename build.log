@@ -1,0 +1,14 @@
+
+> saroistavaloon@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+
+> Build error occurred
+RangeError: Invalid count value: -2
+    at String.repeat (<anonymous>) {
+  type: 'RangeError'
+}

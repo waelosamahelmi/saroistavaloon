@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { materialsApi } from '@/lib/materialsApi';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/omat-materiaalit';
@@ -126,5 +126,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-stone-50 to-amber-50/20 flex items-center justify-center"><div className="text-stone-600">Ladataan...</div></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -5,15 +5,18 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { materialsApi } from '@/lib/materialsApi';
 
+// Use the interface from materialsApi
 interface Material {
   id: string;
   title: string;
   description: string;
+  category: string;
   type: 'video' | 'pdf';
+  price: number;
   thumbnail_url: string;
-  full_url: string;
+  preview_url: string;
   duration?: number;
-  unlocked_at: string;
+  created_at: string;
 }
 
 interface Order {
@@ -21,9 +24,11 @@ interface Order {
   status: 'pending' | 'paid' | 'cancelled';
   paid_at?: string;
   created_at: string;
-  title: string;
-  price: number;
-  thumbnail_url: string;
+  material_id?: string;
+  title?: string;
+  price?: number;
+  thumbnail_url?: string;
+  payment_link?: string;
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_MATERIALS_API_URL || 'http://69.62.126.13:4000';
@@ -216,7 +221,7 @@ export default function MyMaterialsPage() {
                           Lataa
                         </button>
                         <Link
-                          href={`${API_BASE}/${material.full_url}`}
+                          href={`${API_BASE}/materials/${material.id}/download?token=${localStorage.getItem('userToken')}`}
                           target="_blank"
                           className="flex-1 bg-stone-100 hover:bg-stone-200 text-stone-800 py-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
                         >
@@ -224,7 +229,7 @@ export default function MyMaterialsPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
-                          Avaa
+                          Avaa selaimessa
                         </Link>
                       </div>
                     </div>
