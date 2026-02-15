@@ -81,31 +81,13 @@ export default function ServicesPage() {
             </p>
             
             <div className="inline-block border border-slate-200 rounded-lg p-4 mb-6">
-              <p className="text-2xl font-semibold text-slate-800">129 €</p>
+              <p className="text-2xl font-semibold text-slate-800">98 €</p>
             </div>
 
             <div className="block">
               <a href="/varaa-aika?service=14paivaa" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
                 Varaa jakso
               </a>
-            </div>
-          </div>
-
-          {/* Short Support Sessions */}
-          <div className="bg-white rounded-2xl shadow-sm p-8 md:p-10 hover:shadow-md transition-shadow">
-            <h2 className="text-2xl font-medium text-slate-800 mb-2">
-              Lyhyet tukijaksot
-            </h2>
-            <p className="text-slate-700 mb-4">
-              Kevyempiä valmennushetkiä yksittäisiin tilanteisiin, kysymyksiin tai päätöksenteon tueksi.
-            </p>
-            <p className="text-slate-600 mb-6">
-              Sopii silloin, kun et tarvitse pitkää prosessia, vaan tilaa ajatella ja tulla kuulluksi.
-            </p>
-            
-            <div className="inline-block border border-slate-200 rounded-lg p-4 mb-6">
-              <p className="text-sm text-slate-600 mb-1">45 min etäohjaus</p>
-              <p className="text-2xl font-semibold text-slate-800">59 €</p>
             </div>
           </div>
 
