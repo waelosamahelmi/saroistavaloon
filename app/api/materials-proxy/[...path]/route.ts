@@ -11,7 +11,11 @@ export async function GET(
   // Forward query parameters from the original request
   const searchParams = request.nextUrl.searchParams.toString();
   const queryString = searchParams ? `?${searchParams}` : '';
-  const url = `${MATERIALS_API}/${path}${queryString}`;
+  // Ensure path starts with /api/ if not already present
+  const apiPath = path.startsWith('api/') ? `/${path}` : `/api/${path}`;
+  const url = `${MATERIALS_API}${apiPath}${queryString}`;
+  
+  console.log('[Materials Proxy GET]', url);
   
   try {
     const response = await fetch(url, {
@@ -49,7 +53,11 @@ export async function POST(
 ) {
   const { path: pathArray } = await context.params;
   const path = pathArray?.join('/') || '';
-  const url = `${MATERIALS_API}/${path}`;
+  // Ensure path starts with /api/ if not already present
+  const apiPath = path.startsWith('api/') ? `/${path}` : `/api/${path}`;
+  const url = `${MATERIALS_API}${apiPath}`;
+  
+  console.log('[Materials Proxy POST]', url);
   
   try {
     let body = null;

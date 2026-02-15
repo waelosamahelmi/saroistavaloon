@@ -40,7 +40,7 @@ export const materialsApi = {
    * Get all active materials (public catalog)
    */
   async getMaterials(): Promise<{ materials: Material[] }> {
-    const res = await fetch(`${API_URL}/materials`);
+    const res = await fetch(`${API_URL}/api/materials`);
     if (!res.ok) throw new Error('Failed to fetch materials');
     return res.json();
   },
@@ -49,7 +49,7 @@ export const materialsApi = {
    * Get single material details (public)
    */
   async getMaterial(id: string): Promise<{ material: Material }> {
-    const res = await fetch(`${API_URL}/materials/${id}`);
+    const res = await fetch(`${API_URL}/api/materials/${id}`);
     if (!res.ok) throw new Error('Material not found');
     return res.json();
   },
@@ -58,7 +58,7 @@ export const materialsApi = {
    * Register new user
    */
   async register(email: string, password: string, name: string): Promise<{ success: boolean; token: string; user: User }> {
-    const res = await fetch(`${API_URL}/auth/register`, {
+    const res = await fetch(`${API_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, name }),
@@ -74,7 +74,7 @@ export const materialsApi = {
    * Login user
    */
   async login(email: string, password: string): Promise<{ success: boolean; token: string; user: User }> {
-    const res = await fetch(`${API_URL}/auth/login`, {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -90,7 +90,7 @@ export const materialsApi = {
    * Create order (requires user token)
    */
   async createOrder(materialId: string, token: string): Promise<{ success: boolean; order: any }> {
-    const res = await fetch(`${API_URL}/orders`, {
+    const res = await fetch(`${API_URL}/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ export const materialsApi = {
    * Get user's orders
    */
   async getMyOrders(token: string): Promise<{ orders: Order[] }> {
-    const res = await fetch(`${API_URL}/orders/my`, {
+    const res = await fetch(`${API_URL}/api/orders/my`, {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     if (!res.ok) throw new Error('Failed to fetch orders');
@@ -120,7 +120,7 @@ export const materialsApi = {
    * Get user's purchased materials
    */
   async getMyMaterials(token: string): Promise<{ materials: Material[] }> {
-    const res = await fetch(`${API_URL}/materials/my`, {
+    const res = await fetch(`${API_URL}/api/materials/my`, {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     if (!res.ok) throw new Error('Failed to fetch materials');
@@ -131,7 +131,7 @@ export const materialsApi = {
    * Get download URL for purchased material
    */
   getDownloadUrl(materialId: string, token: string): string {
-    return `${API_URL}/materials/${materialId}/download?token=${token}`;
+    return `${API_URL}/api/materials/${materialId}/download?token=${token}`;
   },
 
   // ==================== ADMIN METHODS ====================
@@ -140,7 +140,7 @@ export const materialsApi = {
    * Admin login
    */
   async adminLogin(password: string): Promise<{ success: boolean; token: string }> {
-    const res = await fetch(`${API_URL}/admin/login`, {
+    const res = await fetch(`${API_URL}/api/admin/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password }),
@@ -156,7 +156,7 @@ export const materialsApi = {
    * Upload material (admin only)
    */
   async uploadMaterial(formData: FormData, adminToken: string): Promise<{ success: boolean; material: any }> {
-    const res = await fetch(`${API_URL}/admin/materials`, {
+    const res = await fetch(`${API_URL}/api/admin/materials`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${adminToken}` },
       body: formData,
@@ -172,7 +172,7 @@ export const materialsApi = {
    * Get all orders (admin only)
    */
   async getAdminOrders(adminToken: string): Promise<{ orders: any[] }> {
-    const res = await fetch(`${API_URL}/admin/orders`, {
+    const res = await fetch(`${API_URL}/api/admin/orders`, {
       headers: { 'Authorization': `Bearer ${adminToken}` },
     });
     if (!res.ok) throw new Error('Failed to fetch orders');
@@ -183,7 +183,7 @@ export const materialsApi = {
    * Add payment link to order (admin only)
    */
   async addPaymentLink(orderId: string, paymentLink: string, adminToken: string): Promise<{ success: boolean }> {
-    const res = await fetch(`${API_URL}/admin/orders/${orderId}/payment-link`, {
+    const res = await fetch(`${API_URL}/api/admin/orders/${orderId}/payment-link`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export const materialsApi = {
    * Mark order as paid (admin only)
    */
   async markAsPaid(orderId: string, adminToken: string): Promise<{ success: boolean; message: string }> {
-    const res = await fetch(`${API_URL}/admin/orders/${orderId}/mark-paid`, {
+    const res = await fetch(`${API_URL}/api/admin/orders/${orderId}/mark-paid`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${adminToken}` },
     });
@@ -217,7 +217,7 @@ export const materialsApi = {
    * Get all materials (admin only)
    */
   async getAdminMaterials(adminToken: string): Promise<{ materials: Material[] }> {
-    const res = await fetch(`${API_URL}/admin/materials`, {
+    const res = await fetch(`${API_URL}/api/admin/materials`, {
       headers: { 'Authorization': `Bearer ${adminToken}` },
     });
     if (!res.ok) throw new Error('Failed to fetch materials');
@@ -228,7 +228,7 @@ export const materialsApi = {
    * Delete material (admin only)
    */
   async deleteMaterial(materialId: string, adminToken: string): Promise<{ success: boolean }> {
-    const res = await fetch(`${API_URL}/admin/materials/${materialId}`, {
+    const res = await fetch(`${API_URL}/api/admin/materials/${materialId}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${adminToken}` },
     });
