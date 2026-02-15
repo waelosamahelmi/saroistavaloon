@@ -124,35 +124,45 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-white rounded-2xl shadow-lg p-6 border border-stone-100">
               <h3 className="text-lg font-medium text-stone-800 mb-2 font-serif">
-                Henkilökohtainen
+                45 min
               </h3>
               <p className="text-base text-stone-600 mb-4">
-                60 min etäohjaus
+                etäohjaus
               </p>
-              <p className="text-2xl font-light text-amber-700">75 €</p>
+              <p className="text-2xl font-light text-amber-700">49 €</p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-lg p-6 border border-stone-100">
               <h3 className="text-lg font-medium text-stone-800 mb-2 font-serif">
-                3 kertaa
+                60 min
               </h3>
               <p className="text-base text-stone-600 mb-4">
-                Henkilökohtainen tuki
+                etäohjaus
               </p>
-              <p className="text-2xl font-light text-amber-700">225 €</p>
+              <p className="text-2xl font-light text-amber-700">65 €</p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-lg p-6 border border-stone-100">
               <h3 className="text-lg font-medium text-stone-800 mb-2 font-serif">
-                5 kertaa
+                3 kerran paketti
               </h3>
               <p className="text-base text-stone-600 mb-4">
-                Kattava paketti
+                60€ / kerta
               </p>
-              <p className="text-2xl font-light text-amber-700">375 €</p>
+              <p className="text-2xl font-light text-amber-700">180 €</p>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-lg p-6 border border-stone-100">
+              <h3 className="text-lg font-medium text-stone-800 mb-2 font-serif">
+                5 kerran paketti
+              </h3>
+              <p className="text-base text-stone-600 mb-4">
+                60€ / kerta
+              </p>
+              <p className="text-2xl font-light text-amber-700">300 €</p>
             </div>
           </div>
 
