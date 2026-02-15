@@ -40,16 +40,23 @@ export async function POST(
   const { path: pathArray } = await context.params;
   const path = pathArray?.join('/') || '';
   const url = `${MATERIALS_API}/${path}`;
-  const body = await request.text();
   
   try {
+    let body = null;
+    try {
+      body = await request.text();
+    } catch (e) {
+      // Body might be empty
+      body = '';
+    }
+    
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': request.headers.get('Authorization') || '',
       },
-      body,
+      body: body || undefined,
     });
 
     const data = await response.json();
@@ -57,7 +64,7 @@ export async function POST(
   } catch (error) {
     console.error('Materials API proxy error:', error);
     return NextResponse.json(
-      { error: 'Failed to proxy request' },
+      { error: 'Failed to proxy request', details: String(error) },
       { status: 500 }
     );
   }
