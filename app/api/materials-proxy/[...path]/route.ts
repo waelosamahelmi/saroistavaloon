@@ -8,7 +8,8 @@ export async function GET(
 ) {
   const { path: pathArray } = await context.params;
   const path = pathArray?.join('/') || '';
-  const url = `${MATERIALS_API}/api/${path}`;
+  // Don't add /api/ prefix - it's already in the path from the client
+  const url = `${MATERIALS_API}/${path}`;
   
   try {
     const response = await fetch(url, {
@@ -36,7 +37,7 @@ export async function POST(
 ) {
   const { path: pathArray } = await context.params;
   const path = pathArray?.join('/') || '';
-  const url = `${MATERIALS_API}/api/${path}`;
+  const url = `${MATERIALS_API}/${path}`;
   const body = await request.text();
   
   try {
