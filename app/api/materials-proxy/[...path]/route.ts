@@ -22,12 +22,22 @@ export async function GET(
       },
     });
 
+    // Check if response is ok before parsing JSON
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Materials API error:', response.status, text);
+      return NextResponse.json(
+        { error: 'Backend API error', status: response.status, details: text },
+        { status: response.status }
+      );
+    }
+
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
   } catch (error) {
     console.error('Materials API proxy error:', error);
     return NextResponse.json(
-      { error: 'Failed to proxy request' },
+      { error: 'Failed to proxy request', details: String(error) },
       { status: 500 }
     );
   }
@@ -58,6 +68,16 @@ export async function POST(
       },
       body: body || undefined,
     });
+
+    // Check if response is ok before parsing JSON
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Materials API error:', response.status, text);
+      return NextResponse.json(
+        { error: 'Backend API error', status: response.status, details: text },
+        { status: response.status }
+      );
+    }
 
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
