@@ -31,7 +31,7 @@ export default function AdminAvailabilityPage() {
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem('bookingAdminToken');
     
     if (!token) {
       router.push('/admin/login');
@@ -48,7 +48,7 @@ export default function AdminAvailabilityPage() {
       setLoading(false);
     } catch (err) {
       console.error('Failed to load availability:', err);
-      localStorage.removeItem('adminToken');
+      localStorage.removeItem('bookingAdminToken');
       router.push('/admin/login');
     }
   };
@@ -62,7 +62,7 @@ export default function AdminAvailabilityPage() {
     const startTime = formData.get('start_time') as string;
     const endTime = formData.get('end_time') as string;
 
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('bookingAdminToken');
     if (!adminToken) return;
 
     try {
@@ -85,7 +85,7 @@ export default function AdminAvailabilityPage() {
       return;
     }
 
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('bookingAdminToken');
     if (!adminToken) return;
 
     try {
@@ -99,7 +99,7 @@ export default function AdminAvailabilityPage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
+    localStorage.removeItem('bookingAdminToken');
     router.push('/admin/login');
   };
 

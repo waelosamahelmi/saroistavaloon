@@ -22,7 +22,7 @@ export default function AdminServicesPage() {
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem('bookingAdminToken');
     
     if (!token) {
       router.push('/admin/login');
@@ -39,7 +39,7 @@ export default function AdminServicesPage() {
       setLoading(false);
     } catch (err) {
       console.error('Failed to load services:', err);
-      localStorage.removeItem('adminToken');
+      localStorage.removeItem('bookingAdminToken');
       router.push('/admin/login');
     }
   };
@@ -54,7 +54,7 @@ export default function AdminServicesPage() {
     const durationMinutes = parseInt(formData.get('duration') as string);
     const price = parseFloat(formData.get('price') as string);
 
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('bookingAdminToken');
     if (!adminToken) return;
 
     try {
@@ -75,7 +75,7 @@ export default function AdminServicesPage() {
       return;
     }
 
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('bookingAdminToken');
     if (!adminToken) return;
 
     try {
@@ -89,7 +89,7 @@ export default function AdminServicesPage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
+    localStorage.removeItem('bookingAdminToken');
     router.push('/admin/login');
   };
 

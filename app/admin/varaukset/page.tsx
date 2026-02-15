@@ -29,7 +29,7 @@ export default function AdminBookingsPage() {
   const [paymentLink, setPaymentLink] = useState('');
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem('bookingAdminToken');
     
     if (!token) {
       router.push('/admin/login');
@@ -46,7 +46,7 @@ export default function AdminBookingsPage() {
       setLoading(false);
     } catch (err) {
       console.error('Failed to load bookings:', err);
-      localStorage.removeItem('adminToken');
+      localStorage.removeItem('bookingAdminToken');
       router.push('/admin/login');
     }
   };
@@ -57,7 +57,7 @@ export default function AdminBookingsPage() {
       return;
     }
 
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('bookingAdminToken');
     if (!adminToken) return;
 
     try {
@@ -77,7 +77,7 @@ export default function AdminBookingsPage() {
       return;
     }
 
-    const adminToken = localStorage.getItem('adminToken');
+    const adminToken = localStorage.getItem('bookingAdminToken');
     if (!adminToken) return;
 
     try {
@@ -91,7 +91,7 @@ export default function AdminBookingsPage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
+    localStorage.removeItem('bookingAdminToken');
     router.push('/admin/login');
   };
 

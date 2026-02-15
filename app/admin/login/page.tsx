@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { materialsApi } from '@/lib/materialsApi';
+import { bookingApi } from '@/lib/bookingApi';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -16,11 +17,16 @@ export default function AdminLoginPage() {
     setError('');
 
     try {
-      const result = await materialsApi.adminLogin(password);
+      // Login to both APIs with the same password
+      const [materialsResult, bookingResult] = await Promise.all([
+        materialsApi.adminLogin(password),
+        bookingApi.adminLogin(password)
+      ]);
       
-      if (result.success) {
-        // Store admin token
-        localStorage.setItem('adminToken', result.token);
+      if (materialsResult.success && bookingResult.success) {
+        // Store both admin tokens
+        localStorage.setItem('adminToken', materialsResult.token);
+        localStorage.setItem('bookingAdminToken', bookingResult.token);
         
         // Redirect to materials management
         router.push('/admin/materials');
