@@ -31,20 +31,24 @@ export default function ServicesPage() {
               Valmennus etenee sinun tahdissasi ja keskittyy siihen, mikä on sinulle juuri nyt merkityksellistä.
             </p>
             
-            <div className="grid md:grid-cols-3 gap-4 mb-6">
+            <div className="grid md:grid-cols-4 gap-4 mb-6">
               <div className="border border-slate-200 rounded-lg p-4">
-                <p className="text-sm text-slate-600 mb-1">60 min valmennus</p>
-                <p className="text-2xl font-semibold text-slate-800">75 €</p>
+                <p className="text-sm text-slate-600 mb-1">45 min etäohjaus</p>
+                <p className="text-2xl font-semibold text-slate-800">49 €</p>
+              </div>
+              <div className="border border-slate-200 rounded-lg p-4">
+                <p className="text-sm text-slate-600 mb-1">60 min etäohjaus</p>
+                <p className="text-2xl font-semibold text-slate-800">65 €</p>
               </div>
               <div className="border border-slate-200 rounded-lg p-4">
                 <p className="text-sm text-slate-600 mb-1">3 kerran paketti</p>
-                <p className="text-2xl font-semibold text-slate-800">225 €</p>
-                <p className="text-xs text-slate-500 mt-1">75 € / kerta</p>
+                <p className="text-2xl font-semibold text-slate-800">180 €</p>
+                <p className="text-xs text-slate-500 mt-1">60 € / kerta</p>
               </div>
               <div className="border border-blue-200 bg-blue-50/50 rounded-lg p-4">
                 <p className="text-sm text-blue-600 mb-1">5 kerran paketti</p>
-                <p className="text-2xl font-semibold text-blue-800">375 €</p>
-                <p className="text-xs text-blue-600 mt-1">75 € / kerta</p>
+                <p className="text-2xl font-semibold text-blue-800">300 €</p>
+                <p className="text-xs text-blue-600 mt-1">60 € / kerta</p>
               </div>
             </div>
 
