@@ -1,9 +1,9 @@
 /**
  * Materials API Client
- * Connects Säröistä Valoon website to Materials API
+ * Connects Säröistä Valoon website to Materials API via Next.js proxy
  */
 
-const API_URL = process.env.NEXT_PUBLIC_MATERIALS_API_URL || 'http://69.62.126.13:4000';
+const API_URL = '/api/materials-proxy';
 
 interface Material {
   id: string;

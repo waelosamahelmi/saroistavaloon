@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_BOOKING_API_URL || 'http://69.62.126.13:4001';
+const API_BASE = '/api/booking-proxy';
 
 export const bookingApi = {
   // ========================================================================
