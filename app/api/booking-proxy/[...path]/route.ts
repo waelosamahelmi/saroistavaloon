@@ -8,15 +8,17 @@ export async function GET(
 ) {
   const { path: pathArray } = await context.params;
   const path = pathArray?.join('/') || '';
-  // Don't add /api/ prefix - it's already in the path from the client
-  const url = `${BOOKING_API}/${path}`;
+  // Forward query parameters from the original request
+  const searchParams = request.nextUrl.searchParams.toString();
+  const queryString = searchParams ? `?${searchParams}` : '';
+  const url = `${BOOKING_API}/${path}${queryString}`;
   
   try {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        ...Object.fromEntries(request.headers.entries()),
+        'Authorization': request.headers.get('Authorization') || '',
       },
     });
 
@@ -45,7 +47,7 @@ export async function POST(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...Object.fromEntries(request.headers.entries()),
+        'Authorization': request.headers.get('Authorization') || '',
       },
       body,
     });
@@ -74,7 +76,7 @@ export async function DELETE(
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        ...Object.fromEntries(request.headers.entries()),
+        'Authorization': request.headers.get('Authorization') || '',
       },
     });
 
