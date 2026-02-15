@@ -138,7 +138,19 @@ export default function AdminBookingsPage() {
             </button>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
+            <Link
+              href="/admin/materials"
+              className="text-stone-400 hover:text-white pb-2 transition-colors"
+            >
+              Materiaalit
+            </Link>
+            <Link
+              href="/admin/orders"
+              className="text-stone-400 hover:text-white pb-2 transition-colors"
+            >
+              Tilaukset
+            </Link>
             <Link
               href="/admin/varaukset"
               className="text-amber-400 border-b-2 border-amber-400 pb-2 font-medium"
