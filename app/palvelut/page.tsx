@@ -126,6 +126,17 @@ export default function ServicesPage() {
             <li>• Palveluun ei saa Kela-tukea</li>
           </ul>
         </div>
+
+        {/* Inspiring Image */}
+        <div className="max-w-4xl mx-auto mt-12">
+          <div className="rounded-2xl overflow-hidden shadow-lg">
+            <img 
+              src="/images/forest-path.jpg" 
+              alt="Polku metsässä - matka kohti valoa"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
