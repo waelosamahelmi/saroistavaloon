@@ -99,7 +99,7 @@ export default function ContactPage() {
 
           {/* CTA */}
           <div className="text-center mt-12">
-            <a href="/varaa" className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-700 to-amber-600 text-white px-12 py-5 rounded-full transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105 font-medium">
+            <a href="/varaa-aika" className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-700 to-amber-600 text-white px-12 py-5 rounded-full transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105 font-medium">
               <span>Varaa aika</span>
               <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

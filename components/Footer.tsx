@@ -90,12 +90,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-stone-500 text-sm">
+        <div className="border-t border-stone-800 pt-8">
+          <p className="text-stone-500 text-sm text-center">
             &copy; {new Date().getFullYear()} Säröistä Valoon. Kaikki oikeudet pidätetään.
-          </p>
-          <p className="text-stone-600 text-sm">
-            Made with <span className="text-amber-600">♥</span> by <Link href="https://helmies.fi" target="_blank" className="text-amber-600 hover:text-amber-500 transition-colors">Helmies</Link>
           </p>
         </div>
       </div>

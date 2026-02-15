@@ -48,7 +48,7 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            <a href="/varaa?service=yksilovalmennus" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
+            <a href="/varaa-aika?service=yksilovalmennus" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
               Varaa aika
             </a>
           </div>
@@ -81,7 +81,7 @@ export default function ServicesPage() {
             </div>
 
             <div className="block">
-              <a href="/varaa?service=14paivaa" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
+              <a href="/varaa-aika?service=14paivaa" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors">
                 Varaa jakso
               </a>
             </div>
