@@ -49,6 +49,21 @@ export default function AdminPage() {
     }
   };
 
+  const handleConfirmPayment = async (id: string) => {
+    if (!confirm('Merkitse maksetuksi ja vahvista varaus?')) return;
+
+    try {
+      await db.confirmBooking(id, 'holvi');
+      
+      const updatedBookings = await db.getAll();
+      setBookings(updatedBookings);
+      
+      alert('Varaus vahvistettu ja merkitty maksetuksi!');
+    } catch (error) {
+      alert(`Virhe: ${error}`);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50/30 flex items-center justify-center">
@@ -149,18 +164,28 @@ export default function AdminPage() {
                         {booking.status === 'pending' && '⏳'}
                         {booking.status === 'confirmed' && '✅'}
                         {booking.status === 'cancelled' && '❌'}
-                      </span>
-                      <span className="text-slate-600">
-                        {booking.status === 'pending' ? 'Odottaa' : booking.status === 'confirmed' ? 'Vahvistettu' : 'Peruttu'}
+                        <span className="ml-2">
+                          {booking.status === 'pending' ? 'Odottaa' : booking.status === 'confirmed' ? 'Vahvistettu' : 'Peruttu'}
+                        </span>
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <button
-                        onClick={() => handleDeleteBooking(booking.id)}
-                        className="text-red-600 hover:text-red-700 text-sm font-medium"
-                      >
-                        Poista
-                      </button>
+                      <div className="flex gap-2">
+                        {booking.status === 'pending' && (
+                          <button
+                            onClick={() => handleConfirmPayment(booking.id)}
+                            className="text-green-600 hover:text-green-700 text-sm font-medium"
+                          >
+                            Vahvista
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleDeleteBooking(booking.id)}
+                          className="text-red-600 hover:text-red-700 text-sm font-medium"
+                        >
+                          Poista
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

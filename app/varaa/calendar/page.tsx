@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { db } from '@/data/database.js';
-import { Booking, TimeSlot } from '@/data/types.js';
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { db } from "@/data/database.js";
+import { Booking, TimeSlot } from "@/data/types.js";
 
 /**
  * @typedef {Object} Booking
@@ -13,7 +13,7 @@ import { Booking, TimeSlot } from '@/data/types.js';
  * @property {string} service
  * @property {string} preferredDate
  * @property {string} preferredTime
- * @property {string} [message}
+ * @property {string} [message]
  * @property {'pending'|'confirmed'|'completed'|'cancelled'} status
  * @property {'pending'|'paid'|'invoiced'} paymentStatus
  * @property {'stripe'|'holvi'|'cash'} paymentMethod
@@ -23,21 +23,10 @@ import { Booking, TimeSlot } from '@/data/types.js';
 
 /**
  * @typedef {Object} TimeSlot
- * @property {string} date - YYYY-MM-DD
- * @property {string} time - HH:mm
+ * @property {string} date
+ * @property {string} time
  * @property {boolean} available
  * @property {string} [bookingId]
- */
-
-/**
- * @typedef {Object} Material
- * @property {string} id
- * @property {string} title
- * @property {string} description
- * @property {number} price
- * @property {'pdf'|'video'} type
- * @property {string} [fileUrl]
- * @property {string} createdAt
  */
 
 const services = [
@@ -56,7 +45,7 @@ export default function BookingPage() {
   const searchParams = useSearchParams();
   const preSelectedService = searchParams.get("service");
 
-  const [formData, setFormData] = useState(/** @type {BookingState} */{
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
@@ -66,35 +55,42 @@ export default function BookingPage() {
     message: "",
   });
 
-  const [slots, setSlots] = useState(/** @type {TimeSlot[]} */[]);
+  const [slots, setSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [selectedSlot, setSelectedSlot] = useState(/** @type {(string|null)} */null);
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   const selectedService = services.find(s => s.id === formData.service);
 
-  // Load slots for selected date
-  useEffect(() => {
-    async function loadSlots() {
-      if (formData.preferredDate) {
-        setLoadingSlots(true);
-        try {
-          const daySlots = await db.getSlots(formData.preferredDate);
-          setSlots(daySlots);
-          setLoadingSlots(false);
-        } catch (error) {
-          console.error('Error loading slots:', error);
-          setLoadingSlots(false);
-        }
+  const [bookings, setBookings] = useState([]);
+
+  const loadSlots = async () => {
+    if (formData.preferredDate) {
+      setLoadingSlots(true);
+      try {
+        const daySlots = await db.getSlots(formData.preferredDate);
+        setSlots(daySlots);
+        setLoadingSlots(false);
+      } catch (error) {
+        console.error('Error loading slots:', error);
+        setLoadingSlots(false);
       }
     }
+  };
 
-    const timer = setTimeout(() => {
-      loadSlots();
-    }, 500);
+  const loadBookings = async () => {
+    try {
+      const allBookings = await db.getAll();
+      setBookings(allBookings);
+    } catch (error) {
+      console.error('Error loading bookings:', error);
+    }
+  };
 
-    return () => clearTimeout(timer);
-  }, [formData.preferredDate]);
+  useEffect(() => {
+    loadSlots();
+    loadBookings();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -105,25 +101,29 @@ export default function BookingPage() {
     }
 
     try {
-      const booking = await db.saveBooking(/** @type {Partial<Booking>} */{
+      const booking = await db.saveBooking({
         ...formData,
         preferredTime: selectedSlot,
       });
 
       setSubmitted(true);
 
-      // Reset form
-      setFormData(/** @type {BookingState} */{
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        preferredDate: "",
-        preferredTime: "",
-        message: "",
-      });
-      setSelectedSlot(null);
-      setSlots([]);
+      setTimeout(() => {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          preferredDate: "",
+          preferredTime: "",
+          message: "",
+        });
+        setSelectedSlot(null);
+        setSlots([]);
+        setSubmitted(false);
+      }, 2000);
+
+      await loadBookings();
     } catch (error) {
       alert(`Virhe varauksen luomisessa: ${error.message}`);
     }
@@ -145,11 +145,8 @@ export default function BookingPage() {
             <p className="text-slate-600 mb-6">
               Olemme vastaanottaneet varauskyselysi. Vahvistamme sen sähköpostiisi.
             </p>
-            <p className="text-sm text-slate-500">
-              Varattu aika: {formData.preferredDate} klo {selectedSlot}
-            </p>
             <a href="/" className="inline-block mt-8 text-blue-600 hover:text-blue-700">
-              ← Palaa etusivulle
+              Palaa etusivulle
             </a>
           </div>
         </div>
@@ -157,11 +154,21 @@ export default function BookingPage() {
     );
   }
 
+  const checkSlotAvailable = (time: string) => {
+    const conflictingBookings = bookings.filter(b => 
+      b.preferredDate === formData.preferredDate && 
+      b.preferredTime === time &&
+      b.status !== 'cancelled'
+    );
+    
+    return conflictingBookings.length === 0;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50/30 py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
-          {/* Header */}
+          
           <div className="text-center mb-12">
             <h1 className="text-4xl font-light text-slate-800 mb-4">
               Varaa aika
@@ -171,40 +178,36 @@ export default function BookingPage() {
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm p-8 md:p-10 space-y-6">
             
-            {/* Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                Nimi *
+                Nimi
               </label>
               <input
                 type="text"
                 id="name"
                 required
                 value={formData.name}
-                onChange={(e) => setFormData(/** @type {React.ChangeEvent<HTMLInputElement>} */{ ...formData, name: e.target.value })}
+                onChange={e => setFormData({ ...formData, name: e.target.value })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                Sähköposti *
+                Sähköposti
               </label>
               <input
                 type="email"
                 id="email"
                 required
                 value={formData.email}
-                onChange={(e) => setFormData(/** @type {React.ChangeEvent<HTMLInputElement>} */{ ...formData, email: e.target.value })}
+                onChange={e => setFormData({ ...formData, email: e.target.value })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            {/* Phone */}
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
                 Puhelin
@@ -213,22 +216,21 @@ export default function BookingPage() {
                 type="tel"
                 id="phone"
                 value={formData.phone}
-                onChange={(e) => setFormData(/** @type {React.ChangeEvent<HTMLInputElement>} */{ ...formData, phone: e.target.value })}
+                onChange={e => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            {/* Service */}
             <div>
               <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">
-                Valitse palvelu *
+                Valitse palvelu
               </label>
               <select
                 id="service"
                 required
                 value={formData.service}
-                onChange={(e) => {
-                  setFormData(/** @type {React.ChangeEvent<HTMLSelectElement>} */{ ...formData, service: e.target.value });
+                onChange={e => {
+                  setFormData({ ...formData, service: e.target.value });
                   setSelectedSlot(null);
                   setSlots([]);
                 }}
@@ -243,10 +245,9 @@ export default function BookingPage() {
               </select>
             </div>
 
-            {/* Preferred Date */}
             <div>
               <label htmlFor="preferredDate" className="block text-sm font-medium text-slate-700 mb-2">
-                Toivottu päivämäärä *
+                Toivottu päivämäärä
               </label>
               <input
                 type="date"
@@ -254,20 +255,20 @@ export default function BookingPage() {
                 min={new Date().toISOString().split('T')[0]}
                 required
                 value={formData.preferredDate}
-                onChange={(e) => {
-                  setFormData(/** @type {React.ChangeEvent<HTMLInputElement>} */{ ...formData, preferredDate: e.target.value });
+                onChange={e => {
+                  setFormData({ ...formData, preferredDate: e.target.value });
                   setSelectedSlot(null);
                   setSlots([]);
+                  loadSlots();
                 }}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            {/* Time Slots */}
             {formData.preferredDate && (
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Vapaat ajat ({formData.preferredDate})
+                  Vapaat ajat
                 </label>
                 {loadingSlots ? (
                   <div className="text-center py-4 text-slate-500">
@@ -280,8 +281,7 @@ export default function BookingPage() {
                 ) : (
                   <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
                     {timeSlots.map((time) => {
-                      const slot = slots.find(s => s.time === time);
-                      const isAvailable = slot && slot.available;
+                      const isAvailable = checkSlotAvailable(time);
                       
                       return (
                         <button
@@ -289,15 +289,15 @@ export default function BookingPage() {
                           type="button"
                           disabled={!isAvailable}
                           onClick={() => setSelectedSlot(time)}
-                          className={`p-3 rounded-lg border text-center transition-colors ${
+                          className={"p-3 rounded-lg border text-center transition-colors " + (
                             isAvailable
-                              ? 'border-green-500 bg-green-50 text-green-700 hover:bg-green-100 hover:border-green-600'
-                              : 'border-slate-300 bg-slate-100 text-slate-400 cursor-not-allowed'
-                          } ${
+                              ? "border-green-500 bg-green-50 text-green-700 hover:bg-green-100 hover:border-green-600"
+                              : "border-slate-300 bg-slate-100 text-slate-400 cursor-not-allowed"
+                          ) + (
                             selectedSlot === time
-                              ? 'ring-2 ring-blue-500 bg-blue-50'
-                              : ''
-                          }`}
+                              ? "ring-2 ring-blue-500 bg-blue-50"
+                              : ""
+                          )}
                         >
                           {time}
                         </button>
@@ -308,23 +308,21 @@ export default function BookingPage() {
               </div>
             )}
 
-            {/* Message */}
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                Viesti / Lisätiedot
+                Viesti
               </label>
               <textarea
                 id="message"
                 rows={4}
                 value={formData.message}
-                onChange={(e) => setFormData(/** @type {React.ChangeEvent<HTMLTextAreaElement>} */{ ...formData, message: e.target.value })}
+                onChange={e => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Kerro lyhyesti tilanteestasi ja toiveistasi..."
               />
             </div>
 
-            {/* Submit */}
-            <div className="pt-4">
+            <div>
               <button
                 type="submit"
                 disabled={!selectedSlot || submitted}
