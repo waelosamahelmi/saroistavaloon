@@ -223,8 +223,9 @@ export default function AdminMaterialsPage() {
                   className="w-full bg-stone-900 border border-stone-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 >
                   <option value="hermosto">Hermoston rauhoittaminen</option>
-                  <option value="itsemyötätunto">Itsemyötätunto</option>
-                  <option value="parisuhde">Parisuhde ja ihmissuhteet</option>
+                  <option value="itsemyotanto">Itsemyötätunto - Sisäinen suhde itseesi</option>
+                  <option value="vuorovaikutus">Vuorovaikutus & omat rajat</option>
+                  <option value="parisuhde">Parisuhde & läheiset ihmissuhteet</option>
                 </select>
               </div>
 

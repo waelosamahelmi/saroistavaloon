@@ -40,8 +40,9 @@ export default function MaterialsPage() {
   const getCategoryName = (category: string) => {
     switch (category) {
       case 'hermosto': return 'Hermoston rauhoittaminen';
-      case 'itsemyötätunto': return 'Itsemyötätunto';
-      case 'parisuhde': return 'Parisuhde ja ihmissuhteet';
+      case 'itsemyotanto': return 'Itsemyötätunto - Sisäinen suhde itseesi';
+      case 'vuorovaikutus': return 'Vuorovaikutus & omat rajat';
+      case 'parisuhde': return 'Parisuhde & läheiset ihmissuhteet';
       default: return category;
     }
   };
@@ -86,10 +87,10 @@ export default function MaterialsPage() {
               <div className="text-left max-w-2xl mx-auto space-y-4 text-lg text-stone-700">
                 <p className="font-medium text-stone-900">Teemat liittyvät erityisesti:</p>
                 <ul className="space-y-2 ml-8 list-disc">
-                  <li>vuorovaikutukseen ja omiin rajoihin</li>
-                  <li>parisuhteeseen ja läheisiin ihmissuhteisiin</li>
-                  <li>itsemyötätuntoon</li>
-                  <li>hermoston rauhoittamiseen</li>
+                  <li>Hermoston rauhoittaminen</li>
+                  <li>Itsemyötätunto - Sisäinen suhde itseesi</li>
+                  <li>Vuorovaikutus & omat rajat</li>
+                  <li>Parisuhde & läheiset ihmissuhteet</li>
                 </ul>
               </div>
             </div>
