@@ -60,20 +60,30 @@ export async function POST(
   console.log('[Materials Proxy POST]', url);
   
   try {
+    const contentType = request.headers.get('Content-Type') || '';
     let body = null;
-    try {
-      body = await request.text();
-    } catch (e) {
-      // Body might be empty
-      body = '';
+    let headers: HeadersInit = {
+      'Authorization': request.headers.get('Authorization') || '',
+    };
+
+    // Handle multipart/form-data (file uploads)
+    if (contentType.includes('multipart/form-data')) {
+      // For file uploads, pass FormData directly and let fetch set Content-Type with boundary
+      body = await request.formData();
+      // Don't set Content-Type - fetch will set it with the correct boundary
+    } else {
+      // Handle JSON
+      headers['Content-Type'] = 'application/json';
+      try {
+        body = await request.text();
+      } catch (e) {
+        body = '';
+      }
     }
     
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': request.headers.get('Authorization') || '',
-      },
+      headers,
       body: body || undefined,
     });
 
