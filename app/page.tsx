@@ -55,12 +55,30 @@ export default function HomePage() {
 
           <div className="max-w-3xl mx-auto space-y-4 text-lg text-stone-600 leading-relaxed">
             <p>
-              PDF-materiaaleja ja minikursseja hermoston rauhoittamiseen, tunteiden säätelyyn ja itseymmärrykseen.
+              Itseopiskeltavia PDF-materiaaleja ja minikursseja, jotka auttavat sinua pysähtymään, jäsentämään ajatuksiasi ja etenemään omaan tahtiisi.
             </p>
             <p>
-              Materiaalit on tarkoitettu sinulle, joka haluat pysähtyä, jäsentää ajatuksiasi ja edetä omaan tahtiisi.
+              <strong className="text-stone-800">Materiaalit keskittyvät neljään teemaan:</strong>
             </p>
-            <p>
+            <ul className="space-y-2 text-left max-w-2xl mx-auto">
+              <li className="flex items-start gap-2">
+                <span className="text-amber-700 mt-1">•</span>
+                <span>Hermoston rauhoittaminen</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-amber-700 mt-1">•</span>
+                <span>Itsemyötätunto – Sisäinen suhde itseesi</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-amber-700 mt-1">•</span>
+                <span>Vuorovaikutus & omat rajat</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-amber-700 mt-1">•</span>
+                <span>Parisuhde & läheiset ihmissuhteet</span>
+              </li>
+            </ul>
+            <p className="pt-4">
               Tarjoan myös etävalmennusta yksilölliseen työskentelyyn – luotettavaa tukea, kun kaipaat ohjausta matkallasi.
             </p>
           </div>
