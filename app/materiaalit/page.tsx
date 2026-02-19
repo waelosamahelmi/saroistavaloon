@@ -140,7 +140,7 @@ export default function MaterialsPage() {
                   {material.thumbnail_url && (
                     <div className="relative h-48 w-full bg-stone-100">
                       <img
-                        src={`${API_BASE}/${material.thumbnail_url}`}
+                        src={material.thumbnail_url}
                         alt={material.title}
                         className="w-full h-full object-cover"
                       />
